@@ -1,5 +1,5 @@
 ---
-name: agence-control
+name: control
 description: "Manuel opératoire de l'agence eRom via le MCP Caserne : comment un agent IA agit au quotidien sous sa propre identité. Déclenche dès qu'il faut créer / mettre à jour / commenter / déléguer une issue Linear, lister issues ou projets (dont les tiennes via mine), chercher dans Slack, poster ou lire, consulter son inbox (file de triage) ou la vue projet, lister ses mentions, réagir ✅, lier un thread Slack à une issue, ou envoyer / lire / répondre à un mail et consulter ses mails non lus via l'inbox. Couvre les 18 tools Caserne hors setup_project (voir onboarding)."
 user-invocable: true
 ---
@@ -222,6 +222,6 @@ add_reaction({ ts })                                // ✅ : mention traitée
 ## Ce que cette skill ne couvre pas
 
 - **`setup_project`** (bootstrap projet Linear + canal + `ONBOARD.md`) → `erom-onboarding`.
-- Les **workflows** de plus haut niveau (`agence-inbox`, `agence-relay`, `agence-orchestrate`) s'appuient sur ces tools ; cette skill en est la référence sous-jacente.
+- Les **workflows** de plus haut niveau (`inbox`, `relay`, `orchestrate`) s'appuient sur ces tools ; cette skill en est la référence sous-jacente.
 - **Pas de `list_mails` ni de recherche dans les mails déjà lus** en v1 : seul le volet `mails` de `get_inbox` (non lus) est exposé. Un mail lu (`get_mail`) n'est plus consultable via les tools Caserne.
 - **Pièces jointes en mode HTTP distant (`caserne serve`)** : `save_attachments_to` écrit sur le disque **du serveur**, pas de celui de l'humain qui parle à `claude.ai`. Les paths renvoyés sont côté serveur.

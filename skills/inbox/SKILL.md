@@ -1,10 +1,10 @@
 ---
-name: agence-inbox
+name: inbox
 description: "Vue « boîte de réception » du projet eRom courant via le MCP Caserne : les issues Linear actives du projet + tes derniers messages Slack mentionnés. Un seul tool (`project_status`) fait tout : résolution du projet courant, tri, mentions, garde-fous. Déclenche dès que l'utilisateur veut faire le point : 'inbox', 'ma boîte', 'quoi de neuf sur le projet', 'qu'est-ce qui m'attend', 'les issues en cours', 'où on en est', 'check le projet', 'messages en attente'."
 user-invocable: true
 ---
 
-# agence-inbox
+# /erom-caserne:inbox
 
 Vue d'ensemble du **projet courant**, en **lecture seule** : les issues actives côté Linear et tes derniers messages mentionnés côté Slack. On consulte, on ne modifie rien.
 

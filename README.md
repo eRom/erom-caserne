@@ -1,4 +1,4 @@
-# Agence Plugin - Caserne
+# erom-caserne — le plugin agence eRom
 
 
 ## Claude Code
@@ -8,7 +8,7 @@
 ```
 
 ```
-/plugin install caserne@erom-marketplace
+/plugin install erom-caserne@erom-marketplace
 ```
 
 
@@ -32,7 +32,7 @@ Chosse [Add Marketplace] -> `eRom/erom-marketplace` -> `caserne`
 ## Antigravity / AGY
 
 ```
-agy plugin install https://github.com/eRom/erom-agence-plugin
+agy plugin install https://github.com/eRom/erom-caserne
 ```
 
 

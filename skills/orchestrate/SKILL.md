@@ -1,12 +1,12 @@
 ---
-name: agence-orchestrate
-description: "Doctrine du chef d'orchestre du réseau caserne : déléguer un travail à un salarié IA du swarm depuis la session principale (siège boss, hors pane), suivre l'exécution et synthétiser le livrable. Déclenche UNIQUEMENT sur intention réseau explicite : déléguer / dispatcher à un salarié nommé (« délègue à agy », « demande à agy de… »), lancer un travail « via l'agence » / « sur le réseau », ou suivre une task réseau déjà lancée (où en est la task, relance agy, lis la réponse). Ne se déclenche PAS sur une demande de recherche ordinaire sans intention réseau exprimée : elle reste aux moyens locaux de la session. Complément hors-pane de agence-network (le manuel du salarié dans son pane)."
+name: orchestrate
+description: "Doctrine du chef d'orchestre du réseau caserne : déléguer un travail à un salarié IA du swarm depuis la session principale (siège boss, hors pane), suivre l'exécution et synthétiser le livrable. Déclenche UNIQUEMENT sur intention réseau explicite : déléguer / dispatcher à un salarié nommé (« délègue à agy », « demande à agy de… »), lancer un travail « via l'agence » / « sur le réseau », ou suivre une task réseau déjà lancée (où en est la task, relance agy, lis la réponse). Ne se déclenche PAS sur une demande de recherche ordinaire sans intention réseau exprimée : elle reste aux moyens locaux de la session. Complément hors-pane de la skill network (le manuel du salarié dans son pane)."
 user-invocable: true
 ---
 
 # Agence — orchestrer le réseau depuis la session principale (siège boss)
 
-Le swarm caserne fait tourner une équipe de salariés IA dans une session tmux (`agence-network` est leur manuel). Ce skill est l'autre bout de la lunette : **toi, la session principale, hors pane**, qui délègues un travail au réseau et récupères le livrable. Hors pane (`CASERNE_ALIAS` absent), caserne te donne automatiquement le siège externe **`boss`** : tes `send` / `read` signent `boss`, sans configuration.
+Le swarm caserne fait tourner une équipe de salariés IA dans une session tmux (la skill `network` est leur manuel). Ce skill est l'autre bout de la lunette : **toi, la session principale, hors pane**, qui délègues un travail au réseau et récupères le livrable. Hors pane (`CASERNE_ALIAS` absent), caserne te donne automatiquement le siège externe **`boss`** : tes `send` / `read` signent `boss`, sans configuration.
 
 Tout passe par le CLI **`caserne`** (surface exacte : `caserne` sans argument). Ce skill enseigne le *quand / pourquoi* — le protocole, pas les flags.
 
@@ -113,7 +113,7 @@ ls /abs/du/projet/.claude/agence/out/task-ab12/ # vérifie le livrable, puis syn
 
 ## Ce que ce skill ne couvre pas
 
-- **Le salarié dans son pane** (recruter, répondre à une task, `team` / `fire` / `clean`) → `agence-network`.
-- **L'identité et le travail dans l'agence** (Linear, Slack, mail) → `agence-control`.
+- **Le salarié dans son pane** (recruter, répondre à une task, `team` / `fire` / `clean`) → `/erom-caserne:network`.
+- **L'identité et le travail dans l'agence** (Linear, Slack, mail) → `/erom-caserne:control`.
 - **Le choix des moyens locaux de fallback** : configuration de la session hôte, hors plugin.
 - **Le volet images** (génération / édition → agy) : hors v1 **y compris sur demande nommée**, tant que la capacité d'agy à générer des images dans son pane n'est pas vérifiée sur un cas réel. Le jour venu, c'est une ligne de plus à la table de routage.

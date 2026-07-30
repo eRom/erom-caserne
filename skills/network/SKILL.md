@@ -1,6 +1,6 @@
 ---
-name: agence-network
-description: "Manuel opératoire du swarm caserne : faire tourner une équipe de salariés IA dans une session tmux et les faire collaborer via le CLI `caserne`. Déclenche dès qu'il faut recruter / incarner un agent dans une session, monter une équipe, déléguer une tâche à un coéquipier, répondre à une tâche (succès/échec/blocage), discuter avec un agent, faire le point sur l'équipe (team) ou les tâches (ledger), relancer / virer un agent, ou purger les sessions mortes. Couvre les commandes swarm run -s / send / read / tasks / team / fire / clean. Complément CLI de agence-control (identité Linear / Slack / mail via le MCP)."
+name: network
+description: "Manuel opératoire du swarm caserne : faire tourner une équipe de salariés IA dans une session tmux et les faire collaborer via le CLI `caserne`. Déclenche dès qu'il faut recruter / incarner un agent dans une session, monter une équipe, déléguer une tâche à un coéquipier, répondre à une tâche (succès/échec/blocage), discuter avec un agent, faire le point sur l'équipe (team) ou les tâches (ledger), relancer / virer un agent, ou purger les sessions mortes. Couvre les commandes swarm run -s / send / read / tasks / team / fire / clean. Complément CLI de la skill control (identité Linear / Slack / mail via le MCP)."
 user-invocable: true
 ---
 
@@ -12,7 +12,7 @@ Tout passe par le CLI **`caserne`** — aucun MCP requis, donc ça marche pour n
 
 ## Les 4 principes non négociables
 
-1. **Ton adressage vient de l'env de ton pane, jamais d'un argument.** `CASERNE_ALIAS` (ton surnom dans la session) et `CASERNE_SESSION` sont posés par caserne quand il t'incarne. `send` / `read` s'en servent pour savoir qui tu es et où tu es. Hors pane swarm (pas de `CASERNE_ALIAS` : session principale, terminal nu), l'expéditeur devient le siège externe **`boss`** — le poste de commandement hors swarm ; sa doctrine vit dans `agence-orchestrate`. Ton identité durable Linear / Slack / mail reste `CASERNE_AGENT_ID` (voir `agence-control`) — le surnom, lui, est jetable et local à la session.
+1. **Ton adressage vient de l'env de ton pane, jamais d'un argument.** `CASERNE_ALIAS` (ton surnom dans la session) et `CASERNE_SESSION` sont posés par caserne quand il t'incarne. `send` / `read` s'en servent pour savoir qui tu es et où tu es. Hors pane swarm (pas de `CASERNE_ALIAS` : session principale, terminal nu), l'expéditeur devient le siège externe **`boss`** — le poste de commandement hors swarm ; sa doctrine vit dans la skill `orchestrate`. Ton identité durable Linear / Slack / mail reste `CASERNE_AGENT_ID` (voir la skill `control`) — le surnom, lui, est jetable et local à la session.
 
 2. **Agents égaux, pas de lead.** Tout agent peut recruter, assigner, virer. Le rappel (nudge) d'une tâche en retard revient à **celui qui l'a assignée**. Aucune hiérarchie à respecter ni à annoncer.
 
@@ -141,7 +141,7 @@ caserne fire graphiste                         // libère le pane (réversible)
 
 ## Ce que cette skill ne couvre pas
 
-- **L'orchestration depuis la session principale** (siège `boss` : dispatch, wait, synthèse) → `agence-orchestrate`.
-- **L'identité et le travail dans l'agence** (issues Linear, Slack, mail sous ton nom) → `agence-control`. Le swarm te fait *tourner en équipe* ; agence-control te fait *agir dans l'agence*.
+- **L'orchestration depuis la session principale** (siège `boss` : dispatch, wait, synthèse) → `/erom-caserne:orchestrate`.
+- **L'identité et le travail dans l'agence** (issues Linear, Slack, mail sous ton nom) → `/erom-caserne:control`. Le swarm te fait *tourner en équipe* ; `control` te fait *agir dans l'agence*.
 - **L'embauche** (`caserne agent add`) et l'**onboarding projet** (`setup_project`) → hors swarm.
 - **Phase 2** (recouvrement messagerie fichier ↔ Slack / Linear) : décision produit à l'usage, hors périmètre v1.

@@ -1,10 +1,10 @@
 ---
-name: agence-relay
+name: relay
 description: "Transport d'une idée en gestation via une issue Linear (projet Handoffs) pour la reprendre sur n'importe quel harness. Déclenche quand l'utilisateur demande explicitement de déposer, lister, reprendre ou libérer un relay : 'passe le relais', 'dépose cette idée', 'relaie ça', 'sauvegarde cette idée pour plus tard', 'mes relays', 'mes idées en attente', 'reprends le relay X', 'reprends l'idée du dashboard', 'libère le relay'. Ne déclenche JAMAIS spontanément quand une idée est simplement évoquée sans demande de dépôt."
 user-invocable: true
 ---
 
-# agence-relay
+# /erom-caserne:relay
 
 Un relay = **une issue Linear** dans le projet `Handoffs` qui transporte une **idée en phase gazeuse** : après l'étincelle, avant la pipeline. C'est un passage de témoin curé, pas un dump de conversation. Vise « une session fraîche, sur n'importe quel harness et n'importe quel modèle, reprend sans poser de question bête ».
 

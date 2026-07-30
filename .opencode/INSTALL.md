@@ -12,7 +12,7 @@ Add Caserne to the `plugin` array in your `opencode.json` (global or project-lev
 
 ```json
 {
-  "plugin": ["caserne@git+https://github.com/eRom/erom-agence-plugin.git"]
+  "plugin": ["caserne@git+https://github.com/eRom/erom-caserne.git"]
 }
 ```
 
@@ -33,7 +33,7 @@ The plugin reads `CASERNE_AGENT_ID` from the environment automatically.
 Ask OpenCode:
 
 ```
-Charge la skill agence-control
+Charge la skill control
 Puis : caserne__whoami
 ```
 
@@ -44,7 +44,7 @@ You should see your Caserne identity.
 If you prefer cloning over the git plugin install:
 
 ```bash
-git clone https://github.com/eRom/erom-agence-plugin.git .caserne
+git clone https://github.com/eRom/erom-caserne.git .caserne
 ln -s .caserne/.opencode .opencode
 ln -s .caserne/opencode.json opencode.json
 ln -s .caserne/AGENTS.md AGENTS.md
@@ -60,7 +60,7 @@ To pin a specific version:
 
 ```json
 {
-  "plugin": ["caserne@git+https://github.com/eRom/erom-agence-plugin.git#v2.8.0"]
+  "plugin": ["caserne@git+https://github.com/eRom/erom-caserne.git#v3.0.0"]
 }
 ```
 

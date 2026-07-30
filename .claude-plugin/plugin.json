@@ -1,13 +1,13 @@
 {
   "$schema": "https://www.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "caserne",
+  "name": "erom-caserne",
   "description": "Cross-project orchestration helpers for AI coding agents.",
-  "version": "2.8.0",
+  "version": "3.0.0",
   "author": {
     "name": "Romain Ecarnot",
     "url": "https://github.com/eRom"
   },
-  "repository": "https://github.com/eRom/erom-agence-plugin",
+  "repository": "https://github.com/eRom/erom-caserne",
   "license": "MIT",
   "keywords": [
     "cross-project",

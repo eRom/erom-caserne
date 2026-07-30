@@ -8,11 +8,11 @@ Tu disposes du MCP **Caserne** et de 5 skills charges à la demande.
 
 ## Skills disponibles (charge-les avec le Skill tool)
 
-- `agence-control` — operer via le MCP Caserne : issues Linear, Slack, mail (18 tools)
-- `agence-network` — swarm Caserne : recruter, deleguer, repondre dans une session tmux
-- `agence-orchestrate` — chef d'orchestre : deleguer a un salarie du swarm depuis la session principale
-- `agence-inbox` — boite de reception du projet courant (issues actives + mentions Slack)
-- `agence-relay` — deposer / lister / reprendre / liberer une idee en gestation (issue Linear)
+- `control` — operer via le MCP Caserne : issues Linear, Slack, mail (18 tools)
+- `network` — swarm Caserne : recruter, deleguer, repondre dans une session tmux
+- `orchestrate` — chef d'orchestre : deleguer a un salarie du swarm depuis la session principale
+- `inbox` — boite de reception du projet courant (issues actives + mentions Slack)
+- `relay` — deposer / lister / reprendre / liberer une idee en gestation (issue Linear)
 
 
 ## Conventions
