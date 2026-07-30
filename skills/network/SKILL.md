@@ -8,7 +8,7 @@ user-invocable: true
 
 Le control plane sait lancer **un** salarié seul (`caserne run`, avant-plan). Le **swarm** fait tourner une **flotte** dans une session tmux : chaque pane est une **incarnation** d'un salarié — son identité complète (Linear / Slack / mail) plus la supervision tmux. Les agents sont **égaux** : pas de lead, pas de hiérarchie. Ils se parlent par une messagerie fichier avec injection « ghost typist » (le message est tapé dans le pane du destinataire quand il est au repos).
 
-Tout passe par le CLI **`caserne`** — aucun MCP requis, donc ça marche pour n'importe quel harness (`claude`, `codex`, `opencode`, `agy`). La **source de vérité** de la surface exacte : `caserne` sans argument affiche l'usage. Ce skill enseigne le *quand / pourquoi* et les pièges ; les flags précis vivent dans le CLI.
+Tout passe par le CLI **`caserne`** — aucun MCP requis, donc ça marche pour n'importe quel harness (`claude`, `codex`, `opencode`, `agy`, `grok`). La **source de vérité** de la surface exacte : `caserne` sans argument affiche l'usage. Ce skill enseigne le *quand / pourquoi* et les pièges ; les flags précis vivent dans le CLI.
 
 ## Les 4 principes non négociables
 
@@ -47,6 +47,8 @@ caserne run <agent> -s <session> [--alias <a>] [--model <m>] [-r <runtime>] [-- 
 - **Attach** : hors tmux, ton terminal s'attache à la session après le spawn. Déjà dans la session : le pane apparaît, rien d'autre. Autre session : **pas de switch automatique** (un agent qui recrute ne vole pas ton écran) — un hint `tmux switch-client` s'affiche.
 
 Le nouvel agent boote puis reçoit un **bootstrap** injecté (qui il est, comment joindre l'équipe). Il n'a **pas** à s'annoncer : il est joignable dès que `caserne team` le montre `active`.
+
+⚠️ **Harness `grok` — modale de confiance au premier lancement.** La toute première fois que grok tourne dans un dossier donné, son TUI ouvre une modale (« Run Grok Build in this directory? ») : le bootstrap injecté serait tapé **dedans**, et le salarié paraît muet sans qu'aucune erreur ne remonte nulle part. Lance `grok` une fois à la main dans ce dossier (répondre `y`) **avant** la première incarnation `caserne run grok -s <session>`. Le cwd du pane étant celui de l'appelant, c'est à refaire pour chaque nouveau projet.
 
 ## Messagerie — `send`
 

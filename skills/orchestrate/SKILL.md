@@ -25,6 +25,7 @@ Utilisée seulement quand le salarié n'est pas nommé :
 | Signal | Salarié | Pourquoi |
 |---|---|---|
 | Deep research, veille, état de l'art | `agy` | Grounding Google natif, quota Antigravity |
+| Actualité chaude : social, politique, santé, événements en cours | `grok` | 2e moteur deep, ancrage temps réel sur X ; hors quota Google |
 
 Salarié nommé explicitement (« délègue à glm ») → la table est court-circuitée, même protocole. **Exception : la génération d'images reste hors v1 même pour un salarié nommé** (capacité d'agy en pane non vérifiée, cf. « Ce que ce skill ne couvre pas »).
 
