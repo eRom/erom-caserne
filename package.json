@@ -1,6 +1,6 @@
 {
   "name": "caserne",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Cross-project orchestration helpers for AI coding agents (OpenCode plugin)",
   "type": "module",
   "main": ".opencode/plugins/caserne.js",
