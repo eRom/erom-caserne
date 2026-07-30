@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 // Synchronise le manuel des tools généré par le control-plane
 // (docs/tools-manual.md, source de vérité : src/server.ts) vers la référence
-// embarquée du skill agence-control. Ne jamais éditer la copie à la main.
+// embarquée du skill control. Ne jamais éditer la copie à la main.
 //
 // Usage :
 //   bun scripts/sync-tools-manual.ts [chemin-du-repo-control-plane]
@@ -11,7 +11,7 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 
 const PLUGIN_ROOT = resolve(import.meta.dir, "..");
-const DEST = resolve(PLUGIN_ROOT, "skills/agence-control/references/tools-manual.md");
+const DEST = resolve(PLUGIN_ROOT, "skills/control/references/tools-manual.md");
 
 const args = process.argv.slice(2);
 const check = args.includes("--check");
