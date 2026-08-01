@@ -3,7 +3,7 @@
   "version": "3.0.1",
   "description": "Cross-project orchestration helpers for AI coding agents (OpenCode plugin)",
   "type": "module",
-  "main": ".opencode/plugins/caserne.js",
+  "main": "plugin/.opencode/plugins/caserne.js",
   "license": "MIT",
   "repository": "https://github.com/eRom/erom-caserne",
   "keywords": ["caserne", "cross-project", "orchestration", "skills", "mcp"],
@@ -13,10 +13,10 @@
   },
   "pi": {
       "extensions": [
-        "./.pi/extensions/caserne.ts"
+        "./plugin/.pi/extensions/caserne.ts"
       ],
       "skills": [
-        "./skills"
+        "./plugin/skills"
       ]
     }
 }

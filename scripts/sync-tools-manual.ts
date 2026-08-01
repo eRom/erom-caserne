@@ -10,12 +10,12 @@
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 
-const PLUGIN_ROOT = resolve(import.meta.dir, "..");
-const DEST = resolve(PLUGIN_ROOT, "skills/control/references/tools-manual.md");
+const REPO_ROOT = resolve(import.meta.dir, "..");
+const DEST = resolve(REPO_ROOT, "plugin/skills/control/references/tools-manual.md");
 
 const args = process.argv.slice(2);
 const check = args.includes("--check");
-const cpDir = args.find((a) => !a.startsWith("--")) ?? resolve(PLUGIN_ROOT, "../erom-agence-control-plane");
+const cpDir = args.find((a) => !a.startsWith("--")) ?? resolve(REPO_ROOT, "../erom-agence-control-plane");
 const SRC = resolve(cpDir, "docs/tools-manual.md");
 
 if (!existsSync(SRC)) {
