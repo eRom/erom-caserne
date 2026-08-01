@@ -7,4 +7,3 @@ node_modules/
 # Conception interne + outillage de mainteneur (non distribué au public)
 .claude/
 .superpowers/sdd/
-docs/
