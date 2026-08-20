@@ -1,9 +1,0 @@
-{
-  "mcpServers": {
-    "caserne": {
-      "type": "stdio",
-      "command": "caserne-mcp",
-      "env": { "CASERNE_AGENT_ID": "${CASERNE_AGENT_ID}" }
-    }
-  }
-}
