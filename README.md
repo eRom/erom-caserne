@@ -1,4 +1,4 @@
-# erom-caserne — le plugin agence eRom
+# erom-caserne - le plugin agence eRom
 
 
 ## Claude Code
