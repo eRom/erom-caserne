@@ -7,3 +7,6 @@ node_modules/
 # Conception interne + outillage de mainteneur (non distribué au public)
 .claude/
 .superpowers/sdd/
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
