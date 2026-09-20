@@ -1,5 +1,7 @@
 # erom-caserne - le plugin agence eRom
 
+![erom-caserne](plugin/assets/erom-caserne.png)
+
 
 ## Claude Code
 

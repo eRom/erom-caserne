@@ -1,5 +1,8 @@
 # erom-caserne — le plugin agence eRom
 
+![erom-caserne](assets/erom-caserne.png)
+
+
 Plugin d'orchestration cross-projet pour agents IA. Il branche l'agent sur le
 **MCP Caserne**, le control plane qui donne à chaque salarié IA sa **propre
 identité** sur Linear, Slack et le mail : issues créées, commentées et
