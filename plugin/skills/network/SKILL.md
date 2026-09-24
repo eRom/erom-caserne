@@ -1,6 +1,6 @@
 ---
 name: network
-description: "Manuel opératoire du swarm caserne : faire tourner une équipe de salariés IA dans une session tmux et les faire collaborer via le CLI `caserne`. Déclenche dès qu'il faut recruter / incarner un agent dans une session, monter une équipe, déléguer une tâche à un coéquipier, répondre à une tâche (succès/échec/blocage), discuter avec un agent, faire le point sur l'équipe (team) ou les tâches (ledger), relancer / virer un agent, ou purger les sessions mortes. Couvre les commandes swarm run -s / send / read / tasks / team / fire / clean. Complément CLI de la skill control (identité Linear / Slack / mail via le MCP)."
+description: "Manuel opératoire du swarm caserne : faire tourner une équipe de salariés IA dans une session tmux et les faire collaborer via le CLI `caserne`. Déclenche dès qu'il faut recruter / incarner un agent dans une session, monter une équipe, déléguer une tâche à un coéquipier, répondre à une tâche (succès/échec/blocage), discuter avec un agent, faire le point sur l'équipe (team) ou les tâches (ledger), relancer / virer un agent, ou purger les sessions mortes. Couvre les commandes swarm run -s / send / read / tasks / team / fire / clean, et le choix du canal : SendMessage natif entre deux sessions Claude Code, caserne send pour tout autre harness. Complément CLI de la skill control (identité Linear / Slack / mail via le MCP)."
 user-invocable: true
 ---
 
@@ -9,6 +9,8 @@ user-invocable: true
 Le control plane sait lancer **un** salarié seul (`caserne run`, avant-plan). Le **swarm** fait tourner une **flotte** dans une session tmux : chaque pane est une **incarnation** d'un salarié — son identité complète (Linear / Slack / mail) plus la supervision tmux. Les agents sont **égaux** : pas de lead, pas de hiérarchie. Ils se parlent par une messagerie fichier avec injection « ghost typist » (le message est tapé dans le pane du destinataire quand il est au repos).
 
 Tout passe par le CLI **`caserne`** — aucun MCP requis, donc ça marche pour n'importe quel harness (`claude`, `codex`, `opencode`, `agy`, `grok`). La **source de vérité** de la surface exacte : `caserne` sans argument affiche l'usage. Ce skill enseigne le *quand / pourquoi* et les pièges ; les flags précis vivent dans le CLI.
+
+**Exception Claude ↔ Claude** : quand l'expéditeur et le destinataire sont tous les deux des sessions Claude Code, le tool natif `SendMessage` remplace `caserne send`. Voir « Choisir le canal » plus bas.
 
 ## Les 4 principes non négociables
 
@@ -25,7 +27,8 @@ Tout passe par le CLI **`caserne`** — aucun MCP requis, donc ça marche pour n
 | Commande | À quoi ça sert |
 |---|---|
 | `caserne run <agent> -s <session>` | Recrute / incarne un salarié dans la session (pane dédié) |
-| `caserne send <alias> <verbe> …` | Livre un message dans l'inbox d'un coéquipier |
+| `SendMessage` (tool natif, `to: "<alias>"`) | Parle à un coéquipier **Claude** quand tu es toi-même Claude |
+| `caserne send <alias> <verbe> …` | Livre un message dans l'inbox d'un coéquipier (tout harness) |
 | `caserne read [--unread]` | Lit ta propre inbox (historique / rattrapage) |
 | `caserne tasks [<task_id>]` | Ledger des tâches (pending d'abord, ou fiche détail) |
 | `caserne team [-s <session>]` | État de l'équipe réconcilié avec tmux |
@@ -49,6 +52,33 @@ caserne run <agent> -s <session> [--alias <a>] [--model <m>] [-r <runtime>] [-- 
 Le nouvel agent boote puis reçoit un **bootstrap** injecté (qui il est, comment joindre l'équipe). Il n'a **pas** à s'annoncer : il est joignable dès que `caserne team` le montre `active`.
 
 ⚠️ **Harness `grok` — modale de confiance au premier lancement.** La toute première fois que grok tourne dans un dossier donné, son TUI ouvre une modale (« Run Grok Build in this directory? ») : le bootstrap injecté serait tapé **dedans**, et le salarié paraît muet sans qu'aucune erreur ne remonte nulle part. Lance `grok` une fois à la main dans ce dossier (répondre `y`) **avant** la première incarnation `caserne run grok -s <session>`. Le cwd du pane étant celui de l'appelant, c'est à refaire pour chaque nouveau projet.
+
+## Choisir le canal : `SendMessage` entre Claude, `caserne send` pour le reste
+
+| Toi → destinataire | Canal |
+|---|---|
+| Claude → Claude (pane swarm ou session principale) | `SendMessage` |
+| Claude → agy, codex, opencode, grok | `caserne send` |
+| agy, codex, opencode, grok → qui que ce soit | `caserne send` |
+| Réponse à une `task` reçue par caserne (`[<alias>] (task_request …)`) | `caserne send <expéditeur> response <task_id> …`, même entre Claude : c'est ce qui clôt le ledger |
+
+**Pourquoi.** `SendMessage` livre directement dans la session, sans taper au clavier du pane : pas d'attente d'idle, pas de troncature à ~500 caractères, sauts de ligne conservés, et la réponse revient par le même chemin.
+
+**Qui est Claude ?** Regarde `ListAgents` : un coéquipier Claude vivant y apparaît sous son alias, avec son pane tmux. Absent de `ListAgents` = pas Claude (ou mort) → `caserne send`. La colonne runtime de `caserne team` ne suffit pas : elle montre une clé de runtime (`default`…), pas le harness.
+
+**Adressage.** caserne lance chaque pane Claude avec `--name <alias>` : l'alias de `caserne team` est donc le nom de la session dans `ListAgents`. Envoie `SendMessage` avec `to: "<alias>"`. Si `ListAgents` montre deux lignes avec ce nom (même alias dans deux sessions tmux, vieille session homonyme), ajoute le `[ref]` de la ligne dont la colonne tmux porte le pane (`%N`) affiché par `caserne team`.
+
+**Recevoir.** Le message arrive enveloppé dans `<cross-session-message from="…">`. Réponds par `SendMessage` avec `to` = la valeur de `from`. Rien à lire dans `caserne read` : ces messages ne passent pas par l'inbox caserne.
+
+**Ce que tu perds, et comment compenser.**
+- Pas de ledger ni de relance. Pour savoir quand un pair Claude a fini : `notify_when_idle: true` sur ton `SendMessage` (un seul avis, à la fin de son tour). Jamais de `ListAgents` en boucle ni de « t'as fini ? ».
+- Besoin d'une trace dans `caserne tasks` (quelqu'un attend avec `caserne tasks --wait`, suivi par `boss`) → `caserne send <alias> task …`, même entre Claude.
+
+**Pièges.**
+- La **première ligne** du message sert d'aperçu : une phrase autonome qui dit de quoi il s'agit.
+- `@chemin` n'attache rien chez le destinataire : envoie le texte, ou un **chemin absolu** qu'il lira lui-même.
+- Un `[Cross-session delivery notice]` qui signale un message retenu ou refusé (session dans un autre mode de permission) → renvoie par `caserne send`.
+- Ne demande jamais à un pair ce que tes propres permissions bloquent : ce serait contourner la décision de l'humain.
 
 ## Messagerie — `send`
 
